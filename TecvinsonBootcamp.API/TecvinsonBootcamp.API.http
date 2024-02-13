@@ -1,0 +1,6 @@
+@TecvinsonBootcamp.API_HostAddress = http://localhost:5197
+
+GET {{TecvinsonBootcamp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
