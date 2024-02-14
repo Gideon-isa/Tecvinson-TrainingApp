@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TecvinsonBootcamp.Domain.Entities;
+using TecvinsonBootcamp.Services.Contracts;
 
 namespace TecvinsonBootcamp.Services.Extension
 {

@@ -7,8 +7,8 @@ namespace TecvinsonBootcamp.Domain.Entities
 {
     public class Address
     {
-    public string HouseNo { get; set; }
-    public string State { get; set; }
-    public string Country { get; set; }
+        public string HouseNumber { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
     }
 }
