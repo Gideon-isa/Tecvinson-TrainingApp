@@ -20,9 +20,18 @@ namespace TecvinsonBootcamp.Services
         public static IServiceCollection AddApplicantServices(this IServiceCollection services)
         {
             services.AddScoped<IApplicantService, ApplicantService>();
-            // Automatic registration of validators
-            services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(ApplicantService)), ServiceLifetime.Scoped);
 
+            try
+            {
+                // Automatic registration of validators
+                services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(ApplicantService)), ServiceLifetime.Scoped);
+            }
+            catch (ArgumentNullException e)
+            {
+
+                //logger needed here
+            }
+           
             //services.AddValidatorsFromAssembly(typeof(ApplicantService).Assembly);
 
             return services;
