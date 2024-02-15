@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using TecvinsonBootcamp.Domain.Constant;
 using TecvinsonBootcamp.Repository;
+using TecvinsonBootcamp.Repository.Data;
 using TecvinsonBootcamp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddApplicantRepositoryServices()
     .AddApplicantServices();
+
+builder.Services.AddDbContext<TecvinsonDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString(DbConstant.DbConnectionString));
+});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
