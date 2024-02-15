@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TecvinsonBootcamp.Domain.Repository;
+using TecvinsonBootcamp.Repository.Data;
 using TecvinsonBootcamp.Repository.Implementation;
 
 namespace TecvinsonBootcamp.Repository
@@ -13,7 +15,9 @@ namespace TecvinsonBootcamp.Repository
     {
         public static IServiceCollection AddApplicantRepositoryServices(this IServiceCollection services)
         {
+            
             return services.AddScoped<IApplicantRepository, ApplicantRepository>();
+            
 
         }
     }
