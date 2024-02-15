@@ -7,45 +7,45 @@ using TecvinsonBootcamp.Services.Contracts;
 
 namespace TecvinsonBootcamp.Services.Extension
 {
-    public class ApplicantsExtensions
+    public static class ApplicantExtensions
     {
-        public static Applicants AsEntity(this ApplicantCreateReq req) 
+        public static Applicant AsEntity(this ApplicantCreateReq req) 
         {
-            return new Applicants
+            return new Applicant
             {
-                
+
                 FirstName = req.FirstName,
                 LastName = req.LastName,
-                Createdby = "Admin"
+                //Createdby = "Admin",
                 Email = req.Email,
                 Phone = req.Phone,
                 Gender = req.Gender,
                 Nationality = req.Nationality,
                 DateOfBirth = req.DateOfBirth,
-                ExistingDevSkills = req.ExistingDevSkills,
-                MyDevSkills =req.MyDevSkills,
-                DateCreated = DateTime.utcNow
-            }
+                ExistingDevSkill = req.ExsitingDevSkill,
+                MyDevSkills = req.MyDevSkills,
+                DateCreated = DateTime.Now
+            };
         }
 
-    public static Applicants AsEntity(this ApplicantUpdateReq req) 
+    public static Applicant AsEntity(this ApplicantUpdateReq req) 
     {
-        return new Applicants 
-        {
-            id = req.GroupID,
-            FirstName = req.FirstName,
+            return new Applicant
+            {
+                //Id = req.GroupID,
+                FirstName = req.FirstName,
                 LastName = req.LastName,
-                Createdby = "Admin"
+                //Createdby = "Admin"
                 Email = req.Email,
                 Phone = req.Phone,
                 Gender = req.Gender,
                 Nationality = req.Nationality,
                 DateOfBirth = req.DateOfBirth,
-                ExistingDevSkills = req.ExistingDevSkills,
-                MyDevSkills =req.MyDevSkills,
-                DateModified = DateTime.utcNow
+                ExistingDevSkill = req.ExistingDevSkill,
+                MyDevSkills = req.MyDevSkills,
+                DateModified = DateTime.Now
 
-        }
+            };
     }
         
     }
