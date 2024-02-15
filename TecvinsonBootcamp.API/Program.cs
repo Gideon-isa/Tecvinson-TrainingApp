@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TecvinsonBootcamp.API.Middleware;
 using TecvinsonBootcamp.Domain.Constant;
 using TecvinsonBootcamp.Repository;
 using TecvinsonBootcamp.Repository.Data;
@@ -37,5 +38,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// adding the Middleware
+app.UseMiddleware<ApplicantMiddleware>();
 
 app.Run();

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\TecvinsonBootcamp.Services\TecvinsonBootcamp.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Global Exceptions\" />
-  </ItemGroup>
-
 </Project>
