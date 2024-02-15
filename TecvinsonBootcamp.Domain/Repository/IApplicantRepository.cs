@@ -12,7 +12,10 @@ namespace TecvinsonBootcamp.Domain.Repository
         Task<Applicant> GetById(Guid id);
         Task<IEnumerable<Applicant>> GetAll();
         Task Add(Applicant applicant);
-        Task Remove(Applicant applicant);
+
+        Task<Applicant> Update(Applicant applicant);
+        Task Remove(Guid applicantId);
+
 
     }
 }

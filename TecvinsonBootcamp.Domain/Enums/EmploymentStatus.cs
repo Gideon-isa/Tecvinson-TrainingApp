@@ -10,6 +10,7 @@ namespace TecvinsonBootcamp.Domain.Enums
     {
         Worker = 1,
         Employed = 2,
-        SelfEmployed =3
+        SelfEmployed = 3,
+        UnEmployed = 4
     }
 }

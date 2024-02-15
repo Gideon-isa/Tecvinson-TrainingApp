@@ -16,10 +16,8 @@ namespace TecvinsonBootcamp.Repository.Data
         }
 
         public DbSet<Applicant> Applicant { get; set; }
+
        
-
-
-
 
     }
 }

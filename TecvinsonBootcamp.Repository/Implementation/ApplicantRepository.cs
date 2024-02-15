@@ -15,10 +15,10 @@ namespace TecvinsonBootcamp.Repository.Implementation
     /// </summary>
     public class ApplicantRepository : IApplicantRepository
     {
-        private readonly TecvinsonDbContext _applicantDbContect;
+        private readonly TecvinsonDbContext _applicantDbContext;
         public ApplicantRepository(TecvinsonDbContext tecvinsonDbContext)
         {
-            _applicantDbContect = tecvinsonDbContext;
+            _applicantDbContext = tecvinsonDbContext;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task Add(Applicant applicant)
         {
-            await _applicantDbContect.Applicant.AddAsync(applicant);
+            await _applicantDbContext.Applicant.AddAsync(applicant);
             await SaveChanges();
         }
 
@@ -38,7 +38,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task<IEnumerable<Applicant>> GetAll()
         {
-            return await _applicantDbContect.Applicant.ToListAsync();
+            return await _applicantDbContext.Applicant.ToListAsync();
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
         public async Task<Applicant> GetById(Guid id)
         {
            
-            return await _applicantDbContect.Applicant.FirstOrDefaultAsync(a => a.Id == id);
+            return await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
              
         }
 
@@ -58,9 +58,15 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// </summary>
         /// <param name="applicant"></param>
         /// <returns></returns>
-        public async Task Remove(Applicant applicant)
+        public async Task Remove(Guid applicantId)
         {
-            _applicantDbContect.Applicant.Remove(applicant);
+            var applicant = await _applicantDbContext
+                .Applicant
+                .Where(app => app.Id == applicantId)
+                .FirstOrDefaultAsync();
+
+            _applicantDbContext.Applicant.Remove(applicant);
+
             await SaveChanges();
         }
 
@@ -70,8 +76,16 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task SaveChanges()
         {
-            _ = await _applicantDbContect.SaveChangesAsync();
+            _ = await _applicantDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Applicant> Update(Applicant applicant)
+        {
+            _applicantDbContext.Update(applicant);
+            await SaveChanges();
+
+            return applicant;
         }
     }
-    }
+    
 }
