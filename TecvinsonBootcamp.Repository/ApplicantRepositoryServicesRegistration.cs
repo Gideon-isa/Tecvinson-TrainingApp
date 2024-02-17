@@ -11,7 +11,7 @@ using TecvinsonBootcamp.Repository.Implementation;
 
 namespace TecvinsonBootcamp.Repository
 {
-    public static class ApplicantRepositoryServices
+    public static class ApplicantRepositoryServicesRegistration
     {
         public static IServiceCollection AddApplicantRepositoryServices(this IServiceCollection services)
         {

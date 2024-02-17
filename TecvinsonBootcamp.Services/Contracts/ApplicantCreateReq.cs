@@ -19,9 +19,12 @@ namespace TecvinsonBootcamp.Services.Contracts
         public List<string> ExsitingDevSkill { set; get; }
         public List<string> MyDevSkills { set; get; }
 
-        public int EmploymentStatus { set; get; }
+        public string EmploymentStatus { set; get; }
 
-        public Address Address { get; set; }
+        //public Address Address { get; set; }
+        public string? HouseNumber { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
 
     }
 }

@@ -15,7 +15,7 @@ namespace TecvinsonBootcamp.Services
     /// <summary>
     /// 
     /// </summary>
-    public static class ApplicantServiceExtension
+    public static class ApplicantServiceRegistration
     {
         public static IServiceCollection AddApplicantServices(this IServiceCollection services)
         {

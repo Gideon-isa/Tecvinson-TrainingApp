@@ -21,6 +21,10 @@ namespace TecvinsonBootcamp.Services.Contracts
 
         public string EmploymentStatus { set; get; }
 
-        public Address Address { get; set; }
+        //public Address? Address { get; set; }
+
+        public string? HouseNumber { set; get; }
+        public string? State { set; get; }
+        public string? Country { set; get; }
     }
 }

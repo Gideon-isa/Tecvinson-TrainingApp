@@ -29,6 +29,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
         public async Task Add(Applicant applicant)
         {
             await _applicantDbContext.Applicant.AddAsync(applicant);
+
             await SaveChanges();
         }
 
@@ -49,8 +50,14 @@ namespace TecvinsonBootcamp.Repository.Implementation
         public async Task<Applicant> GetById(Guid id)
         {
            
-            return await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
-             
+            var applicant = await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
+
+            // retrieving the applicant address
+            //applicant.Address = await GetAddressById(applicant.Address.Id);
+            
+            
+            return applicant;
+
         }
 
         /// <summary>
@@ -74,7 +81,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// Saving all changes in the DBContext to the database
         /// </summary>
         /// <returns></returns>
-        public async Task SaveChanges()
+        public async Task SaveChanges() 
         {
             _ = await _applicantDbContext.SaveChangesAsync();
         }
@@ -86,6 +93,14 @@ namespace TecvinsonBootcamp.Repository.Implementation
 
             return applicant;
         }
+
+        //public async Task<Address> GetAddressById(Guid id)
+        //{
+        //    return await  _applicantDbContext.Address.FirstOrDefaultAsync(a => a.Id == id);
+
+        //}
+
+        
     }
     
 }

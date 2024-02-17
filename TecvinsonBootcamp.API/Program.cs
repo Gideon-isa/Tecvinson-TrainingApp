@@ -40,6 +40,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 // adding the Middleware
-app.UseMiddleware<ApplicantMiddleware>();
+//app.UseMiddleware<ApplicantMiddleware>();
 
 app.Run();

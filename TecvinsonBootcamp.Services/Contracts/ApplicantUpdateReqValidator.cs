@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TecvinsonBootcamp.Domain.Constant;
 
 namespace TecvinsonBootcamp.Services.Contracts
 {
@@ -27,10 +28,6 @@ namespace TecvinsonBootcamp.Services.Contracts
                .NotEmpty()
                .WithMessage("Phone number is required");
 
-            RuleFor(m => m.Address)
-               .NotEmpty()
-               .WithMessage("Address name is required");
-
             RuleFor(m => m.EmploymentStatus)
                .NotEmpty()
                .WithMessage("Employment Status name is required");
@@ -38,6 +35,8 @@ namespace TecvinsonBootcamp.Services.Contracts
             RuleFor(m => m.Gender)
                .NotEmpty()
                .WithMessage("Gender name is required");
+
+            
         }
 
     }

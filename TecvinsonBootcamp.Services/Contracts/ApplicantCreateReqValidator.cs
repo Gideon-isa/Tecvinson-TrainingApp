@@ -27,10 +27,6 @@ namespace TecvinsonBootcamp.Services.Contracts
                .NotEmpty()
                .WithMessage("Phone number is required");
 
-            RuleFor(m => m.Address)
-               .NotEmpty()
-               .WithMessage("Address name is required");
-
             RuleFor(m => m.EmploymentStatus)
                .NotEmpty()
                .WithMessage("Employment Status name is required");

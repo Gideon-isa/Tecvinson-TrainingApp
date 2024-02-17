@@ -84,6 +84,7 @@ namespace TecvinsonBootcamp.Services.Implementation
         public async Task<ApplicantDto> Update(ApplicantUpdateReq applicant)
         {
             Applicant newUpdatedApp = applicant.AsEntity();
+
             await _applicantRepository.Update(newUpdatedApp);
 
             return newUpdatedApp.ToDto();

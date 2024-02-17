@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TecvinsonBootcamp.Services.Contracts
 {
-    public class ApplicantResp
+    public class ApplicantResp<T>
     {
+        
     }
 }

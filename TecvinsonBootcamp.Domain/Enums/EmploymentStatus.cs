@@ -8,9 +8,9 @@ namespace TecvinsonBootcamp.Domain.Enums
 {
     public enum EmploymentStatus
     {
-        Worker = 1,
-        Employed = 2,
-        SelfEmployed = 3,
-        UnEmployed = 4
+        Worker,
+        Employed,
+        SelfEmployed,
+        UnEmployed
     }
 }
