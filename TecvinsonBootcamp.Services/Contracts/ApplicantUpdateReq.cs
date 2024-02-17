@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TecvinsonBootcamp.Domain.Entities;
-
 namespace TecvinsonBootcamp.Services.Contracts
 {
     public class ApplicantUpdateReq

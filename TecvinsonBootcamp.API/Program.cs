@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using TecvinsonBootcamp.API.Middleware;
 using TecvinsonBootcamp.Domain.Constant;
 using TecvinsonBootcamp.Repository;
 using TecvinsonBootcamp.Repository.Data;
@@ -10,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
-    .AddApplicantRepositoryServices()
-    .AddApplicantServices();
+    .AddRepository()
+    .AddService();
 
 builder.Services.AddDbContext<TecvinsonDbContext>(opt =>
 {

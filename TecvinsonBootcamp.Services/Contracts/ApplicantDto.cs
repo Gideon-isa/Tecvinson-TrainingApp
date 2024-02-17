@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TecvinsonBootcamp.Domain.Entities;
-
-namespace TecvinsonBootcamp.Services.Contracts
+﻿namespace TecvinsonBootcamp.Services.Contracts
 {
     public class ApplicantDto
     {

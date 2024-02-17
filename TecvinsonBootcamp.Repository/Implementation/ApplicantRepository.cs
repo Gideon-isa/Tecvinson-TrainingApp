@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TecvinsonBootcamp.Domain.Entities;
 using TecvinsonBootcamp.Domain.Repository;
 using TecvinsonBootcamp.Repository.Data;
@@ -48,14 +43,11 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <param name="id">Applicant's ID</param>
         /// <returns></returns>
         public async Task<Applicant> GetById(Guid id)
-        {
-           
+        {          
             var applicant = await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
 
             // retrieving the applicant address
-            //applicant.Address = await GetAddressById(applicant.Address.Id);
-            
-            
+            //applicant.Address = await GetAddressById(applicant.Address.Id);  
             return applicant;
 
         }
@@ -90,7 +82,6 @@ namespace TecvinsonBootcamp.Repository.Implementation
         {
             _applicantDbContext.Update(applicant);
             await SaveChanges();
-
             return applicant;
         }
 

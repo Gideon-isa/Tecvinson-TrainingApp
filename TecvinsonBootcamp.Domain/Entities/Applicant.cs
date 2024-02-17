@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TecvinsonBootcamp.Domain.Common;
-using TecvinsonBootcamp.Domain.Constant;
-using TecvinsonBootcamp.Domain.Enums;
 
 namespace TecvinsonBootcamp.Domain.Entities
 {

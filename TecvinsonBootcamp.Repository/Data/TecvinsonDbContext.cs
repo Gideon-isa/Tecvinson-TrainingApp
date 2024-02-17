@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TecvinsonBootcamp.Domain.Entities;
 
 namespace TecvinsonBootcamp.Repository.Data
@@ -20,8 +15,6 @@ namespace TecvinsonBootcamp.Repository.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
             modelBuilder.Entity<Applicant>(entity =>
             {
                 entity.HasOne<Address>(a => a.Address)

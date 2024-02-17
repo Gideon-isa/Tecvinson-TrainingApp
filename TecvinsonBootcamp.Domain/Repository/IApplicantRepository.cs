@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TecvinsonBootcamp.Domain.Entities;
+﻿using TecvinsonBootcamp.Domain.Entities;
 
 namespace TecvinsonBootcamp.Domain.Repository
 {
@@ -15,7 +10,6 @@ namespace TecvinsonBootcamp.Domain.Repository
 
         Task<Applicant> Update(Applicant applicant);
         Task Remove(Guid applicantId);
-
 
     }
 }
