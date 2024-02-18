@@ -28,7 +28,7 @@ namespace TecvinsonBootcamp.API.Controllers
 
         [Route("Add", Name = "Add")]
         [HttpPost]
-        public async Task<ActionResult> Add(ApplicantCreateReq req)
+        public async Task<ActionResult> Add([FromBody] ApplicantCreateReq req)
         {
             // validate request
             var validationResult = _createValidator.Validate(req);
@@ -43,7 +43,7 @@ namespace TecvinsonBootcamp.API.Controllers
 
         [Route("GetById", Name ="GetById")]
         [HttpGet]
-        public async Task<ActionResult<ApplicantDto>> GetById(Guid id)
+        public async Task<ActionResult<ApplicantDto>> GetById([FromQuery] Guid id)
         {
             var applicant = await _applicantService.GetApplicantById(id);
 
@@ -62,19 +62,19 @@ namespace TecvinsonBootcamp.API.Controllers
 
         [Route("Update", Name = "Update")]
         [HttpPut]
-        public async Task<ActionResult<ApplicantDto>> Update(Guid id, ApplicantUpdateReq req)
+        public async Task<ActionResult<ApplicantDto>> Update([FromBody] ApplicantUpdateReq req)
         {
             var validatationResult = _updateValidator.Validate(req);
             if (!validatationResult.IsValid)
             {
                 return BadRequest(validatationResult);
             }
-            var updateNew = await _applicantService.GetApplicantById(id);
+            //var updateNew = await _applicantService.GetApplicantById(id);
 
-            if (updateNew == null)
-            {
-                return BadRequest();
-            }
+            //if (updateNew == null)
+            //{
+            //    return BadRequest();
+            //}
 
             //  
 
@@ -83,7 +83,7 @@ namespace TecvinsonBootcamp.API.Controllers
 
         [Route("Delete", Name = "Delete")]
         [HttpDelete]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete([FromBody] Guid id)
         {
             await _applicantService.Delete(id);
             return Accepted();

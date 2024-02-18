@@ -27,15 +27,15 @@ namespace TecvinsonBootcamp.Services.Extension
                 MyDevSkills = req.MyDevSkills,
                 DateCreated = DateTime.Now,
                 EmploymentStatusConstant = req.EmploymentStatus,
-                //Address = new Address()
-                //{
+                Address = new Address()
+                {
 
-                //    HouseNumber = req.HouseNumber,
-                //    State = req.State,
-                //    Country = req.Country
-                //},
-                
-                
+                    HouseNumber = req.HouseNumber,
+                    State = req.State,
+                    Country = req.Country
+                },
+
+
             };
         }
 
@@ -89,9 +89,9 @@ namespace TecvinsonBootcamp.Services.Extension
                 ExistingDevSkill = applicant.ExistingDevSkill,
                 MyDevSkills = applicant.MyDevSkills,
                 EmploymentStatus = applicant.EmploymentStatusConstant,
-                //Country = applicant.Address.Country,
-                //HouseNumber = applicant.Address.HouseNumber,
-                //State = applicant.Address.State
+                Country = applicant.Address.Country,
+                HouseNumber = applicant.Address.HouseNumber,
+                State = applicant.Address.State
                 //HouseNumber = applicant.Address.HouseNumber,
                 //State = applicant.Address.State,
                 //Country = applicant.Address.Country,
@@ -101,6 +101,43 @@ namespace TecvinsonBootcamp.Services.Extension
                 //Country = applicant.Address.Country
                 
             };
+        }
+
+        public static List<ApplicantDto> ToDtos(this IEnumerable<Applicant> applicants)
+        {
+            List<ApplicantDto> applicantDtos = new List<ApplicantDto>();
+
+            foreach (var applicant in applicants)
+            {
+                var newApplicant =  new ApplicantDto()
+                {
+                    FirstName = applicant.FirstName,
+                    LastName = applicant.LastName,
+                    Email = applicant.Email,
+                    Phone = applicant.Phone,
+                    Gender = applicant.Gender,
+                    Nationality = applicant.Nationality,
+                    DateOfBirth = applicant.DateOfBirth,
+                    ExistingDevSkill = applicant.ExistingDevSkill,
+                    MyDevSkills = applicant.MyDevSkills,
+                    EmploymentStatus = applicant.EmploymentStatusConstant,
+                    Country = applicant.Address.Country,
+                    HouseNumber = applicant.Address.HouseNumber,
+                    State = applicant.Address.State
+                    //HouseNumber = applicant.Address.HouseNumber,
+                    //State = applicant.Address.State,
+                    //Country = applicant.Address.Country,
+                    //Address = applicant.Address
+                    //HouseNumber = applicant.Address.HouseNumber,
+                    //State = applicant.Address.State,
+                    //Country = applicant.Address.Country
+
+                };
+
+                applicantDtos.Add(newApplicant);
+            }
+
+            return applicantDtos;
         }
 
         /// <summary>

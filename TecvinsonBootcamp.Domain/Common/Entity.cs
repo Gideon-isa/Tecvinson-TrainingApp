@@ -4,7 +4,7 @@ namespace TecvinsonBootcamp.Domain.Common
 {
     public class Entity
     {
-        [Key] //
+        //[Key] //
         public Guid Id { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
