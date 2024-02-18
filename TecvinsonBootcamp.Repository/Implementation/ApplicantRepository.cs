@@ -24,7 +24,6 @@ namespace TecvinsonBootcamp.Repository.Implementation
         public async Task Add(Applicant applicant)
         {
             await _applicantDbContext.Applicant.AddAsync(applicant);
-
             await SaveChanges();
         }
 
@@ -34,7 +33,8 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task<IEnumerable<Applicant>> GetAll()
         {
-            return await _applicantDbContext.Applicant.ToListAsync();
+            //return await _applicantDbContext.Applicant.ToListAsync();
+            return await _applicantDbContext.Applicant.Include(a => a.Address).ToListAsync();
         }
 
         /// <summary>
@@ -43,9 +43,10 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <param name="id">Applicant's ID</param>
         /// <returns></returns>
         public async Task<Applicant> GetById(Guid id)
-        {          
-            var applicant = await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
-
+        {
+            var applicant = await _applicantDbContext.Applicant.Include(a => a.Address).FirstOrDefaultAsync();
+            //var applicant = await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
+            //var applicant = await _applicantDbContext.Applicant.Where(ap => ap.Id == id).Include(a => a.Address);
             // retrieving the applicant address
             //applicant.Address = await GetAddressById(applicant.Address.Id);  
             return applicant;
@@ -65,7 +66,6 @@ namespace TecvinsonBootcamp.Repository.Implementation
                 .FirstOrDefaultAsync();
 
             _applicantDbContext.Applicant.Remove(applicant);
-
             await SaveChanges();
         }
 

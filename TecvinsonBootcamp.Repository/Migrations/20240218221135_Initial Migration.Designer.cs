@@ -12,8 +12,8 @@ using TecvinsonBootcamp.Repository.Data;
 namespace TecvinsonBootcamp.Repository.Migrations
 {
     [DbContext(typeof(TecvinsonDbContext))]
-    [Migration("20240217114758_initial-Migration")]
-    partial class initialMigration
+    [Migration("20240218221135_Initial Migration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,21 +35,15 @@ namespace TecvinsonBootcamp.Repository.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HouseNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicantId")
-                        .IsUnique();
 
                     b.ToTable("Address");
                 });
@@ -116,23 +110,27 @@ namespace TecvinsonBootcamp.Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId")
+                        .IsUnique();
+
                     b.ToTable("Applicant");
-                });
-
-            modelBuilder.Entity("TecvinsonBootcamp.Domain.Entities.Address", b =>
-                {
-                    b.HasOne("TecvinsonBootcamp.Domain.Entities.Applicant", "Applicant")
-                        .WithOne("Address")
-                        .HasForeignKey("TecvinsonBootcamp.Domain.Entities.Address", "ApplicantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Applicant");
                 });
 
             modelBuilder.Entity("TecvinsonBootcamp.Domain.Entities.Applicant", b =>
                 {
+                    b.HasOne("TecvinsonBootcamp.Domain.Entities.Address", "Address")
+                        .WithOne("Applicant")
+                        .HasForeignKey("TecvinsonBootcamp.Domain.Entities.Applicant", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("TecvinsonBootcamp.Domain.Entities.Address", b =>
+                {
+                    b.Navigation("Applicant")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

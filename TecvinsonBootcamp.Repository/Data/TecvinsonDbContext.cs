@@ -17,10 +17,17 @@ namespace TecvinsonBootcamp.Repository.Data
         {
             modelBuilder.Entity<Applicant>(entity =>
             {
-                entity.HasOne<Address>(a => a.Address)
+                entity.HasOne(a => a.Address)
                        .WithOne(a => a.Applicant)
                        .HasForeignKey<Address>(a => a.ApplicantId)
-                       .OnDelete(DeleteBehavior.Restrict);
+                       .IsRequired();
+            });
+
+            modelBuilder.Entity<Address>(entity =>
+            {
+                entity.HasOne(a => a.Applicant)
+                .WithOne(a => a.Address)
+                .HasForeignKey<Applicant>(a => a.AddressId);
             });
 
             //base.OnModelCreating(modelBuilder);

@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TecvinsonBootcamp.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApplicantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Applicant",
                 columns: table => new
@@ -36,33 +51,18 @@ namespace TecvinsonBootcamp.Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Applicant", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HouseNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApplicantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Address_Applicant_ApplicantId",
-                        column: x => x.ApplicantId,
-                        principalTable: "Applicant",
+                        name: "FK_Applicant_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_ApplicantId",
-                table: "Address",
-                column: "ApplicantId",
+                name: "IX_Applicant_AddressId",
+                table: "Applicant",
+                column: "AddressId",
                 unique: true);
         }
 
@@ -70,10 +70,10 @@ namespace TecvinsonBootcamp.Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Applicant");
 
             migrationBuilder.DropTable(
-                name: "Applicant");
+                name: "Address");
         }
     }
 }
