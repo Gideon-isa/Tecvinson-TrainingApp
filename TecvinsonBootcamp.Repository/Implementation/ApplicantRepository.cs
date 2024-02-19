@@ -44,7 +44,9 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task<Applicant> GetById(Guid id)
         {
-            var applicant = await _applicantDbContext.Applicant.Include(a => a.Address).FirstOrDefaultAsync();
+            var applicant = await _applicantDbContext.Applicant
+                .Include(a => a.Address)
+                .FirstOrDefaultAsync((a => a.Id == id));
             //var applicant = await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
             //var applicant = await _applicantDbContext.Applicant.Where(ap => ap.Id == id).Include(a => a.Address);
             // retrieving the applicant address
@@ -80,9 +82,9 @@ namespace TecvinsonBootcamp.Repository.Implementation
 
         public async Task<Applicant> Update(Applicant applicant)
         {
-            _applicantDbContext.Update(applicant);
+            var newUpdate = _applicantDbContext.Update(applicant).Entity;
             await SaveChanges();
-            return applicant;
+            return newUpdate;
         }
 
         //public async Task<Address> GetAddressById(Guid id)

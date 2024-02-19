@@ -36,9 +36,7 @@ namespace TecvinsonBootcamp.Services.Implementation
         /// <returns></returns>
         public async Task Delete(Guid id)
         {
-
             await _applicantRepository.Remove(id);
-             
         }
 
         /// <summary>
@@ -49,7 +47,6 @@ namespace TecvinsonBootcamp.Services.Implementation
         public async Task<IEnumerable<ApplicantDto>> GetAllApplicants()
         {
             var applicants = await _applicantRepository.GetAll();
-
             List<ApplicantDto> applicantDtos = new List<ApplicantDto>();
 
             foreach (var item in applicants)
@@ -78,11 +75,14 @@ namespace TecvinsonBootcamp.Services.Implementation
         /// <returns></returns>
         public async Task<ApplicantDto> Update(ApplicantUpdateReq applicant)
         {
-            Applicant newUpdatedApp = applicant.AsEntity();
+            var checkApplicant = await _applicantRepository.GetById(applicant.Id);
+            if (checkApplicant is null)
+            {
+                return null;
+            }
+            return (await _applicantRepository.Update(applicant.AsEntity())).ToDto();
 
-            await _applicantRepository.Update(newUpdatedApp);
-
-            return newUpdatedApp.ToDto();
+             
             
         }
     }

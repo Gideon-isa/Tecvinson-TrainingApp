@@ -64,21 +64,18 @@ namespace TecvinsonBootcamp.API.Controllers
         [HttpPut]
         public async Task<ActionResult<ApplicantDto>> Update([FromBody] ApplicantUpdateReq req)
         {
-            var validatationResult = _updateValidator.Validate(req);
-            if (!validatationResult.IsValid)
+            var validationResult = _updateValidator.Validate(req);
+            if (!validationResult.IsValid)
             {
-                return BadRequest(validatationResult);
+                return BadRequest(validationResult);
             }
-            //var updateNew = await _applicantService.GetApplicantById(id);
 
-            //if (updateNew == null)
-            //{
-            //    return BadRequest();
-            //}
-
-            //  
-
-            return Ok(await _applicantService.Update(req));
+            var updateApplicant = await _applicantService.Update(req);
+            if (updateApplicant is null)
+            {
+                return BadRequest();
+            }
+            return Ok(updateApplicant);
         }
 
         [Route("Delete", Name = "Delete")]

@@ -8,7 +8,10 @@ namespace TecvinsonBootcamp.Repository.Configuration
     {
         public void Configure(EntityTypeBuilder<Applicant> builder)
         {
-            throw new NotImplementedException();
+            builder.HasOne(a => a.Address)
+                .WithOne(a => a.Applicant)
+                .HasForeignKey<Address>(a => a.ApplicantId)
+                .IsRequired(); 
         }
     }
 }

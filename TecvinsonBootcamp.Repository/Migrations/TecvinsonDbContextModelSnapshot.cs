@@ -42,6 +42,9 @@ namespace TecvinsonBootcamp.Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicantId")
+                        .IsUnique();
+
                     b.ToTable("Address");
                 });
 
@@ -107,27 +110,23 @@ namespace TecvinsonBootcamp.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
                     b.ToTable("Applicant");
-                });
-
-            modelBuilder.Entity("TecvinsonBootcamp.Domain.Entities.Applicant", b =>
-                {
-                    b.HasOne("TecvinsonBootcamp.Domain.Entities.Address", "Address")
-                        .WithOne("Applicant")
-                        .HasForeignKey("TecvinsonBootcamp.Domain.Entities.Applicant", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("TecvinsonBootcamp.Domain.Entities.Address", b =>
                 {
-                    b.Navigation("Applicant")
+                    b.HasOne("TecvinsonBootcamp.Domain.Entities.Applicant", "Applicant")
+                        .WithOne("Address")
+                        .HasForeignKey("TecvinsonBootcamp.Domain.Entities.Address", "ApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Applicant");
+                });
+
+            modelBuilder.Entity("TecvinsonBootcamp.Domain.Entities.Applicant", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

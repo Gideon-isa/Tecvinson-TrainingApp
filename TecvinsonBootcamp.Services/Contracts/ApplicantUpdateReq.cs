@@ -2,6 +2,7 @@ namespace TecvinsonBootcamp.Services.Contracts
 {
     public class ApplicantUpdateReq
     {
+        public Guid Id { get; set; }
         public string? FirstName { set; get; } = string.Empty;
         public string? LastName { set; get; } = string.Empty;
         public string? Email { set; get; } = string.Empty;

@@ -67,7 +67,7 @@ namespace TecvinsonBootcamp.Services.Extension
                     Country = req.Country
 
                 },
-                AddressId = new Guid()
+                
                 
       
             };
