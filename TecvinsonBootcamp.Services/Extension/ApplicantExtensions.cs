@@ -29,13 +29,10 @@ namespace TecvinsonBootcamp.Services.Extension
                 EmploymentStatusConstant = req.EmploymentStatus,
                 Address = new Address()
                 {
-
                     HouseNumber = req.HouseNumber,
                     State = req.State,
                     Country = req.Country
                 },
-
-
             };
         }
 
@@ -44,37 +41,29 @@ namespace TecvinsonBootcamp.Services.Extension
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public static Applicant AsEntity(this ApplicantUpdateReq req)
+        public static Applicant AsEntity(this ApplicantUpdateReq req, Applicant applicant)
         {
-            return new Applicant
-            {
-
-                FirstName = req.FirstName,
-                LastName = req.LastName,
-                Email = req.Email,
-                Phone = req.Phone,
-                Gender = req.Gender,
-                Nationality = req.Nationality,
-                DateOfBirth = req.DateOfBirth,
-                ExistingDevSkill = req.ExistingDevSkill,
-                MyDevSkills = req.MyDevSkills,
-                DateModified = DateTime.Now,
-                EmploymentStatusConstant = req.EmploymentStatus,
-                Address = new Address
-                {
-                    HouseNumber = req.HouseNumber,
-                    State = req.State,
-                    Country = req.Country
-
-                },
-                
-                
-      
-            };
-
-
+            applicant.FirstName = req.FirstName;
+            applicant.LastName = req.LastName;
+            applicant.Email = req.Email;
+            applicant.Phone = req.Phone;
+            applicant.Gender = req.Gender;
+            applicant.Nationality = req.Nationality;
+            applicant.DateOfBirth = req.DateOfBirth;
+            applicant.ExistingDevSkill = req.ExistingDevSkill;
+            applicant.MyDevSkills = req.MyDevSkills;
+            applicant.EmploymentStatusConstant = req.EmploymentStatus;
+            applicant.Address.HouseNumber = req.HouseNumber;
+            applicant.Address.State = req.State;
+            applicant.Address.Country = req.Country;
+            return applicant;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="applicant"></param>
+        /// <returns></returns>
         public static ApplicantDto ToDto(this Applicant applicant)
         {
             return new ApplicantDto()
@@ -92,13 +81,6 @@ namespace TecvinsonBootcamp.Services.Extension
                 Country = applicant.Address.Country,
                 HouseNumber = applicant.Address.HouseNumber,
                 State = applicant.Address.State
-                //HouseNumber = applicant.Address.HouseNumber,
-                //State = applicant.Address.State,
-                //Country = applicant.Address.Country,
-                //Address = applicant.Address
-                //HouseNumber = applicant.Address.HouseNumber,
-                //State = applicant.Address.State,
-                //Country = applicant.Address.Country
                 
             };
         }
@@ -124,14 +106,6 @@ namespace TecvinsonBootcamp.Services.Extension
                     Country = applicant.Address.Country,
                     HouseNumber = applicant.Address.HouseNumber,
                     State = applicant.Address.State
-                    //HouseNumber = applicant.Address.HouseNumber,
-                    //State = applicant.Address.State,
-                    //Country = applicant.Address.Country,
-                    //Address = applicant.Address
-                    //HouseNumber = applicant.Address.HouseNumber,
-                    //State = applicant.Address.State,
-                    //Country = applicant.Address.Country
-
                 };
 
                 applicantDtos.Add(newApplicant);

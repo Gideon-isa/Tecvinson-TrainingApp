@@ -80,7 +80,28 @@ namespace TecvinsonBootcamp.Services.Implementation
             {
                 return null;
             }
-            return (await _applicantRepository.Update(applicant.AsEntity())).ToDto();
+
+           
+            //checkApplicant = applicant.AsEntity(checkApplicant); // this not working?????
+
+            checkApplicant.FirstName = applicant.FirstName;
+            checkApplicant.LastName = applicant.LastName;
+            checkApplicant.Email = applicant.Email;
+            checkApplicant.Phone = applicant.Phone;
+            checkApplicant.Gender = applicant.Gender;
+            checkApplicant.Nationality = applicant.Nationality;
+            checkApplicant.DateOfBirth = applicant.DateOfBirth;
+            checkApplicant.EmploymentStatusConstant = applicant.EmploymentStatus;
+            checkApplicant.ExistingDevSkill = applicant.ExistingDevSkill;
+            checkApplicant.MyDevSkills = applicant.MyDevSkills;
+            checkApplicant.Address = new Address
+            {
+                HouseNumber = applicant.HouseNumber,
+                State = applicant.State,
+                Country = applicant.Country
+            };
+
+            return (await _applicantRepository.Update(checkApplicant)).ToDto();
 
              
             

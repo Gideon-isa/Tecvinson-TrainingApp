@@ -33,7 +33,6 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task<IEnumerable<Applicant>> GetAll()
         {
-            //return await _applicantDbContext.Applicant.ToListAsync();
             return await _applicantDbContext.Applicant.Include(a => a.Address).ToListAsync();
         }
 
@@ -47,12 +46,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
             var applicant = await _applicantDbContext.Applicant
                 .Include(a => a.Address)
                 .FirstOrDefaultAsync((a => a.Id == id));
-            //var applicant = await _applicantDbContext.Applicant.FirstOrDefaultAsync(a => a.Id == id);
-            //var applicant = await _applicantDbContext.Applicant.Where(ap => ap.Id == id).Include(a => a.Address);
-            // retrieving the applicant address
-            //applicant.Address = await GetAddressById(applicant.Address.Id);  
             return applicant;
-
         }
 
         /// <summary>
@@ -67,7 +61,7 @@ namespace TecvinsonBootcamp.Repository.Implementation
                 .Where(app => app.Id == applicantId)
                 .FirstOrDefaultAsync();
 
-            _applicantDbContext.Applicant.Remove(applicant);
+            _ = _applicantDbContext.Applicant.Remove(applicant);
             await SaveChanges();
         }
 
@@ -82,16 +76,12 @@ namespace TecvinsonBootcamp.Repository.Implementation
 
         public async Task<Applicant> Update(Applicant applicant)
         {
-            var newUpdate = _applicantDbContext.Update(applicant).Entity;
+            _applicantDbContext.Entry(applicant).State = EntityState.Modified;
             await SaveChanges();
-            return newUpdate;
+            return applicant;
         }
 
-        //public async Task<Address> GetAddressById(Guid id)
-        //{
-        //    return await  _applicantDbContext.Address.FirstOrDefaultAsync(a => a.Id == id);
-
-        //}
+        
 
         
     }
