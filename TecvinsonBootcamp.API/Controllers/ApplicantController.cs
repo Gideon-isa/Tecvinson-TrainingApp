@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Net;
 using TecvinsonBootcamp.Domain.Entities;
 using TecvinsonBootcamp.Services.Contracts;
@@ -9,6 +10,7 @@ using TecvinsonBootcamp.Services.Interfaces;
 
 namespace TecvinsonBootcamp.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ApplicantController : ControllerBase
@@ -46,7 +48,6 @@ namespace TecvinsonBootcamp.API.Controllers
         public async Task<ActionResult<ApplicantDto>> GetById([FromQuery] Guid id)
         {
             var applicant = await _applicantService.GetApplicantById(id);
-
             return Ok(applicant);
         }
 
@@ -62,7 +63,7 @@ namespace TecvinsonBootcamp.API.Controllers
 
         [Route("Update", Name = "Update")]
         [HttpPut]
-        public async Task<ActionResult<ApplicantDto>> Update([FromBody] ApplicantUpdateReq req)
+        public async Task<ActionResult<ApplicantDto>> Update(Guid Id, [FromBody] ApplicantUpdateReq req)
         {
             var validationResult = _updateValidator.Validate(req);
             if (!validationResult.IsValid)
