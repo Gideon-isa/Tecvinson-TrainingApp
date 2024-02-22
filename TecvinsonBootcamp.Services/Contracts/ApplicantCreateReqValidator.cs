@@ -23,8 +23,11 @@ namespace TecvinsonBootcamp.Services.Contracts
                .WithMessage("Phone number is required");
 
             RuleFor(m => m.EmploymentStatus)
-               .NotEmpty()
-               .WithMessage("Employment Status name is required");
+                .NotEmpty()
+                .WithMessage("Employment status can not be empty. \n Enter Worker or Employee or Self employed or Unemployed");
+                
+                
+               //.WithMessage("Employment Status name is required");
 
             RuleFor(m => m.Gender)
                .NotEmpty()

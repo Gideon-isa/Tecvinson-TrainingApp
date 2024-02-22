@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TecvinsonBootcamp.Domain.Enums;
 
 namespace TecvinsonBootcamp.Services.Contracts
 {
@@ -23,8 +24,9 @@ namespace TecvinsonBootcamp.Services.Contracts
                .WithMessage("Phone number is required");
 
             RuleFor(m => m.EmploymentStatus)
-               .NotEmpty()
-               .WithMessage("Employment Status name is required");
+               .IsInEnum()
+               .WithMessage("Employment Status name is required and must be either any of these:" +
+               "Worker, Employee, SelfEmployed or Unemployed");
 
             RuleFor(m => m.Gender)
                .NotEmpty()

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Converters;
 using TecvinsonBootcamp.Domain.Constant;
 using TecvinsonBootcamp.Repository;
 using TecvinsonBootcamp.Repository.Data;
@@ -19,7 +20,13 @@ builder.Services.AddDbContext<TecvinsonDbContext>(opt =>
 
 builder.Services
     .AddControllers()
-    .AddNewtonsoftJson(); // using the NewtonsoftJson formatter
+    // using the NewtonsoftJson formatter
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(new StringEnumConverter());   
+    });
+builder.Services.AddSwaggerGenNewtonsoftSupport(); // swagger support for NewtonsoftJson
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

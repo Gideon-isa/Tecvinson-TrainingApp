@@ -1,4 +1,5 @@
 using TecvinsonBootcamp.Domain.Entities;
+using TecvinsonBootcamp.Domain.Enums;
 using TecvinsonBootcamp.Services.Contracts;
 
 namespace TecvinsonBootcamp.Services.Extension
@@ -26,7 +27,7 @@ namespace TecvinsonBootcamp.Services.Extension
                 ExistingDevSkill = req.ExsitingDevSkill,
                 MyDevSkills = req.MyDevSkills,
                 DateCreated = DateTime.Now,
-                EmploymentStatusConstant = req.EmploymentStatus,
+                //EmploymentStatusConstant = req.EmploymentStatus,
                 Address = new Address()
                 {
                     HouseNumber = req.HouseNumber,
@@ -41,23 +42,23 @@ namespace TecvinsonBootcamp.Services.Extension
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public static Applicant AsEntity(this ApplicantUpdateReq req, Applicant applicant)
-        {
-            applicant.FirstName = req.FirstName;
-            applicant.LastName = req.LastName;
-            applicant.Email = req.Email;
-            applicant.Phone = req.Phone;
-            applicant.Gender = req.Gender;
-            applicant.Nationality = req.Nationality;
-            applicant.DateOfBirth = req.DateOfBirth;
-            applicant.ExistingDevSkill = req.ExistingDevSkill;
-            applicant.MyDevSkills = req.MyDevSkills;
-            applicant.EmploymentStatusConstant = req.EmploymentStatus;
-            applicant.Address.HouseNumber = req.HouseNumber;
-            applicant.Address.State = req.State;
-            applicant.Address.Country = req.Country;
-            return applicant;
-        }
+        //public static Applicant AsEntity(this ApplicantUpdateReq req, Applicant applicant)
+        //{
+        //    applicant.FirstName = req.FirstName;
+        //    applicant.LastName = req.LastName;
+        //    applicant.Email = req.Email;
+        //    applicant.Phone = req.Phone;
+        //    applicant.Gender = req.Gender;
+        //    applicant.Nationality = req.Nationality;
+        //    applicant.DateOfBirth = req.DateOfBirth;
+        //    applicant.ExistingDevSkill = req.ExistingDevSkill;
+        //    applicant.MyDevSkills = req.MyDevSkills;
+        //    applicant.EmploymentStatus = req.EmploymentStatus;
+        //    applicant.Address.HouseNumber = req.HouseNumber;
+        //    applicant.Address.State = req.State;
+        //    applicant.Address.Country = req.Country;
+        //    return applicant;
+        //}
 
         /// <summary>
         /// 
@@ -77,7 +78,7 @@ namespace TecvinsonBootcamp.Services.Extension
                 DateOfBirth = applicant.DateOfBirth,
                 ExistingDevSkill = applicant.ExistingDevSkill,
                 MyDevSkills = applicant.MyDevSkills,
-                EmploymentStatus = applicant.EmploymentStatusConstant,
+                EmploymentStatus = applicant.EmploymentStatus,
                 Country = applicant.Address.Country,
                 HouseNumber = applicant.Address.HouseNumber,
                 State = applicant.Address.State
@@ -102,7 +103,7 @@ namespace TecvinsonBootcamp.Services.Extension
                     DateOfBirth = applicant.DateOfBirth,
                     ExistingDevSkill = applicant.ExistingDevSkill,
                     MyDevSkills = applicant.MyDevSkills,
-                    EmploymentStatus = applicant.EmploymentStatusConstant,
+                    EmploymentStatus = applicant.EmploymentStatus,
                     Country = applicant.Address.Country,
                     HouseNumber = applicant.Address.HouseNumber,
                     State = applicant.Address.State
@@ -113,6 +114,8 @@ namespace TecvinsonBootcamp.Services.Extension
 
             return applicantDtos;
         }
+
+
 
         /// <summary>
         /// Converting the enum value to its respective string value

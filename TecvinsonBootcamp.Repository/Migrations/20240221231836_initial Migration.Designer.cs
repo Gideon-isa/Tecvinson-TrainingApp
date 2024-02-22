@@ -12,8 +12,8 @@ using TecvinsonBootcamp.Repository.Data;
 namespace TecvinsonBootcamp.Repository.Migrations
 {
     [DbContext(typeof(TecvinsonDbContext))]
-    [Migration("20240219163429_Updated Save")]
-    partial class UpdatedSave
+    [Migration("20240221231836_initial Migration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,8 +76,8 @@ namespace TecvinsonBootcamp.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmploymentStatusConstant")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EmploymentStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("ExistingDevSkill")
                         .IsRequired()

@@ -1,4 +1,7 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using TecvinsonBootcamp.Domain.Common;
+using TecvinsonBootcamp.Domain.Enums;
 
 namespace TecvinsonBootcamp.Domain.Entities
 {
@@ -14,10 +17,10 @@ namespace TecvinsonBootcamp.Domain.Entities
         public Guid GroupId { get; set; }
         public Address? Address { get; set; }
         public Guid AddressId { get; set; }
-
         public List<string> ExistingDevSkill { set; get; } = new List<string>();
         public List<string> MyDevSkills {set; get;} = new List<string>();
-        public string? EmploymentStatusConstant{ set; get; }
+        //public string? EmploymentStatusConstant{ set; get; }
+        public EmploymentStatus EmploymentStatus { set; get; }
 
     }
 }

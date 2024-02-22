@@ -73,8 +73,8 @@ namespace TecvinsonBootcamp.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmploymentStatusConstant")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EmploymentStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("ExistingDevSkill")
                         .IsRequired()

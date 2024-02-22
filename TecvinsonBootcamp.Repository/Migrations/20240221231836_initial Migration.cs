@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TecvinsonBootcamp.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +27,7 @@ namespace TecvinsonBootcamp.Repository.Migrations
                     AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExistingDevSkill = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MyDevSkills = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmploymentStatusConstant = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmploymentStatus = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),

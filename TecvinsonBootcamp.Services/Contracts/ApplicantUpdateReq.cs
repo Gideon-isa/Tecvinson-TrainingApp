@@ -1,3 +1,5 @@
+using TecvinsonBootcamp.Domain.Enums;
+
 namespace TecvinsonBootcamp.Services.Contracts
 {
     public class ApplicantUpdateReq
@@ -12,7 +14,7 @@ namespace TecvinsonBootcamp.Services.Contracts
         public DateTime DateOfBirth { set; get; }
         public List<string> ExistingDevSkill { set; get; }
         public List<string> MyDevSkills { set; get; }
-
+        //public EmploymentStatus EmploymentStatus { set; get; }
         public string? EmploymentStatus { set; get; }
 
         //public Address Address { get; set; }
