@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TecvinsonBootcamp.Domain.Entities;
 using TecvinsonBootcamp.Domain.Repository;
 using TecvinsonBootcamp.Repository.Data;
@@ -11,9 +12,12 @@ namespace TecvinsonBootcamp.Repository.Implementation
     public class ApplicantRepository : IApplicantRepository
     {
         private readonly TecvinsonDbContext _applicantDbContext;
-        public ApplicantRepository(TecvinsonDbContext tecvinsonDbContext)
+        private readonly ILogger<ApplicantRepository> _logger;
+
+        public ApplicantRepository(TecvinsonDbContext tecvinsonDbContext, ILogger<ApplicantRepository> logger)
         {
             _applicantDbContext = tecvinsonDbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -43,9 +47,15 @@ namespace TecvinsonBootcamp.Repository.Implementation
         /// <returns></returns>
         public async Task<Applicant> GetById(Guid id)
         {
+            _logger.LogInformation($"fetching applicant with user id {id}");
             var applicant = await _applicantDbContext.Applicant
                 .Include(a => a.Address)
                 .FirstOrDefaultAsync((a => a.Id == id));
+            if (applicant == null)
+            {
+                _logger.LogInformation($"unable to fetch user with id {id}");
+                throw new Exception("user not found");
+            }
             return applicant;
         }
 

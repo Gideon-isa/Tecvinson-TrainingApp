@@ -1,4 +1,5 @@
-﻿using TecvinsonBootcamp.Domain.Entities;
+﻿using Microsoft.Extensions.Logging;
+using TecvinsonBootcamp.Domain.Entities;
 using TecvinsonBootcamp.Domain.Enums;
 using TecvinsonBootcamp.Domain.Repository;
 using TecvinsonBootcamp.Services.Contracts;
@@ -10,6 +11,7 @@ namespace TecvinsonBootcamp.Services.Implementation
     public class ApplicantService : IApplicantService
     {
         private readonly IApplicantRepository _applicantRepository;
+        private readonly ILogger<ApplicantService> _logger;
 
         public ApplicantService(IApplicantRepository applicantRepository)
         {
@@ -25,9 +27,18 @@ namespace TecvinsonBootcamp.Services.Implementation
         {
            
             // converting applicantCreateReq to Applicant Entity
-            var newApplicant = applicant.AsEntity(); 
+            var newApplicant = applicant.AsEntity();
             //
-            newApplicant.EmploymentStatus = GetEmploymentStatus(applicant.EmploymentStatus);        
+            try
+            {
+                newApplicant.EmploymentStatus = GetEmploymentStatus(applicant.EmploymentStatus);
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation("employment status entered not recognized");
+                throw;
+            }
+                    
 
             // Adding the new applicant to the dbContext
             await _applicantRepository.Add(newApplicant);
@@ -68,7 +79,17 @@ namespace TecvinsonBootcamp.Services.Implementation
         /// <returns></returns>
         public async Task<ApplicantDto> GetApplicantById(Guid id)
         {
-            var applicant = await _applicantRepository.GetById(id);
+            Applicant applicant;
+            try
+            {
+               applicant = await _applicantRepository.GetById(id);
+            }
+            catch (Exception )
+            {
+                _logger.LogInformation("");
+                throw;
+            }
+            
             return applicant.ToDto();
         }
 
@@ -82,22 +103,19 @@ namespace TecvinsonBootcamp.Services.Implementation
             var checkApplicant = await _applicantRepository.GetById(applicant.Id);
             if (checkApplicant is null)
             {
-                return null;
+                throw new NullReferenceException();
             }
-
-
-            //checkApplicant = applicant.AsEntity(checkApplicant); // this not working ?????
-
+            //checkApplicant = applicant.AsEntity(checkApplicant); // this not working ?????        
             try
             {
                 checkApplicant.EmploymentStatus = GetEmploymentStatus(applicant.EmploymentStatus);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
-                return null;
+                _logger.LogInformation("employment status entered not recognized");
+                throw;
             }
-
+           
             checkApplicant.FirstName = applicant.FirstName;
             checkApplicant.LastName = applicant.LastName;
             checkApplicant.Email = applicant.Email;
@@ -105,7 +123,6 @@ namespace TecvinsonBootcamp.Services.Implementation
             checkApplicant.Gender = applicant.Gender;
             checkApplicant.Nationality = applicant.Nationality;
             checkApplicant.DateOfBirth = applicant.DateOfBirth;
-            //checkApplicant.EmploymentStatus = applicant.EmploymentStatus;
             checkApplicant.ExistingDevSkill = applicant.ExistingDevSkill;
             checkApplicant.MyDevSkills = applicant.MyDevSkills;
             checkApplicant.Address = new Address
@@ -119,10 +136,16 @@ namespace TecvinsonBootcamp.Services.Implementation
    
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NullReferenceException"></exception>
         private static EmploymentStatus GetEmploymentStatus(string userInput)
         {
-            EmploymentStatus employmentStatus = EmploymentStatus.Worker;
-
+            
+            EmploymentStatus employmentStatus;
             userInput = userInput.Trim().ToLower();
 
             if (userInput.Contains(" "))
@@ -144,8 +167,8 @@ namespace TecvinsonBootcamp.Services.Implementation
                     employmentStatus = EmploymentStatus.Unemployed;
                     break;
                 default:
-                    throw null;
-                    //break;
+                    throw new ArgumentException();
+                    
             }
 
             return employmentStatus;

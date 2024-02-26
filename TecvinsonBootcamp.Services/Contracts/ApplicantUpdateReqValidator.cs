@@ -24,9 +24,9 @@ namespace TecvinsonBootcamp.Services.Contracts
                .WithMessage("Phone number is required");
 
             RuleFor(m => m.EmploymentStatus)
-               .IsInEnum()
-               .WithMessage("Employment Status name is required and must be either any of these:" +
-               "Worker, Employee, SelfEmployed or Unemployed");
+               .NotEmpty()
+               .WithMessage("Employment Status name is required and must be either any of these: " +
+               "Worker, Employee, Self Employed or Unemployed");
 
             RuleFor(m => m.Gender)
                .NotEmpty()
