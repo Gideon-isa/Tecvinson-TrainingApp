@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net;
-using TecvinsonBootcamp.Domain.Entities;
 using TecvinsonBootcamp.Services.Contracts;
 using TecvinsonBootcamp.Services.Interfaces;
 
@@ -32,14 +27,28 @@ namespace TecvinsonBootcamp.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Add([FromBody] ApplicantCreateReq req)
         {
+            _logger.LogInformation($"initializing the creation of a new applicant");
             // validate request
             var validationResult = _createValidator.Validate(req);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult);
+                _logger.LogInformation($"unable to create user, invalid users input");
+                return BadRequest(validationResult);  
             }
-            await _applicantService.Add(req);
 
+            try
+            {
+                _logger.LogInformation("trying to add applicant");
+                await _applicantService.Add(req);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("unable to create user, invalid users input");
+                return UnprocessableEntity(e);
+                //throw;
+            }
+
+            _logger.LogInformation("applicant created successfully");
             return Created();
         }
 
@@ -47,7 +56,16 @@ namespace TecvinsonBootcamp.API.Controllers
         [HttpGet]
         public async Task<ActionResult<ApplicantDto>> GetById([FromQuery] Guid id)
         {
-            var applicant = await _applicantService.GetApplicantById(id);
+            ApplicantDto applicant = null;
+            try
+            {
+                applicant = await _applicantService.GetApplicantById(id);
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("");
+            }
+            
             return Ok(applicant);
         }
 
@@ -63,7 +81,7 @@ namespace TecvinsonBootcamp.API.Controllers
 
         [Route("Update", Name = "Update")]
         [HttpPut]
-        public async Task<ActionResult<ApplicantDto>> Update(Guid Id, [FromBody] ApplicantUpdateReq req)
+        public async Task<ActionResult<ApplicantDto>> Update([FromBody] ApplicantUpdateReq req)
         {
             var validationResult = _updateValidator.Validate(req);
             if (!validationResult.IsValid)
@@ -71,7 +89,30 @@ namespace TecvinsonBootcamp.API.Controllers
                 return BadRequest(validationResult);
             }
 
-            var updateApplicant = await _applicantService.Update(req);
+            ApplicantDto updateApplicant;
+
+            try
+            {
+                updateApplicant = await _applicantService.Update(req);
+            }
+            catch (ArgumentNullException a)
+            {
+                _logger.LogInformation("wrong employment status entry");
+                _logger.LogError("employment status entered not recognized");
+                return BadRequest("employment status entered not recognized");
+            }
+            catch (NullReferenceException n)
+            {
+                _logger.LogInformation($" {n.Message}, User with {req.Id} was not found");
+                return BadRequest($" {n.Message}, User with {req.Id} was not found");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation(e.Message);
+                return BadRequest(req);
+            }
+           
+
             if (updateApplicant is null)
             {
                 return BadRequest();
